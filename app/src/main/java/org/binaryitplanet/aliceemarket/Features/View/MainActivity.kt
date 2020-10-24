@@ -1,7 +1,8 @@
-package org.binaryitplanet.aliceemarket
+package org.binaryitplanet.aliceemarket.Features.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import org.binaryitplanet.aliceemarket.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

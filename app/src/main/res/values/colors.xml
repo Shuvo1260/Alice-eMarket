@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="fernFrond">#416422</color>
+    <color name="greanPea">#1E623A</color>
+    <color name="blueStone">#005E4E</color>
+    <color name="eden">#16505E</color>
 </resources>
