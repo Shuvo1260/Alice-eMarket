@@ -16,5 +16,9 @@ class Config {
         )
 
         val SEARCH_HINT = "Product name"
+
+        // Intent data
+        val PRODUCT = "Product"
+        val IS_SELLER = "isSeller"
     }
 }

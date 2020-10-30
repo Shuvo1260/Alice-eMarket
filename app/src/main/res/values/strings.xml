@@ -3,5 +3,7 @@
     <string name="search">Search</string>
     <string name="Category">Category</string>
     <string name="price">Price:</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

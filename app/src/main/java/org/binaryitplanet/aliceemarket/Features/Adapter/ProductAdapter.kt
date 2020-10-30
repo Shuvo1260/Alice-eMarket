@@ -1,6 +1,8 @@
 package org.binaryitplanet.aliceemarket.Features.Adapter
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.view_product_item.view.*
+import org.binaryitplanet.aliceemarket.Features.View.ViewProduct
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -19,7 +22,8 @@ import java.math.RoundingMode
 
 class ProductAdapter(
     val context: Context,
-    val productList: ArrayList<ProductUtils>
+    val productList: ArrayList<ProductUtils>,
+    val isSeller: Boolean
 ): RecyclerView.Adapter<ProductAdapter.ViewHolder>(), Filterable {
 
     private val TAG = "ProductAdapter"
@@ -68,13 +72,14 @@ class ProductAdapter(
             Log.d(TAG, "ExpenseViewError: ${e.message}")
         }
 
-//
-//        view.setOnClickListener {
-//            val intent = Intent(context, ViewExpense::class.java)
-//            intent.putExtra(Config.EXPENSE, expensesList[position])
-//            context.startActivity(intent)
-//            (context as Activity).overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
-//        }
+
+        view.setOnClickListener {
+            val intent = Intent(context, ViewProduct::class.java)
+            intent.putExtra(Config.PRODUCT, productList[position])
+            intent.putExtra(Config.IS_SELLER, isSeller)
+            context.startActivity(intent)
+            (context as Activity).overridePendingTransition(R.anim.toptobottom, R.anim.positiontoright)
+        }
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {}

@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = ProductAdapter(this, productList)
+        adapter = ProductAdapter(this, productList, false)
         binding.list.adapter = adapter
         binding.list.layoutManager = GridLayoutManager(this, 2)
         binding.list.setItemViewCacheSize(Config.CACHE_SIZE)
