@@ -13,4 +13,32 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="toolbarMenuTheme" parent="Theme.AppCompat.Light">
+        <!-- Customizing toolbar theme theme here. -->
+        <item name="colorAccent">@color/white</item>
+        <item name="editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:itemBackground">@color/greanPea</item>
+    </style>
+
+
+    <!--    Text input edittext theme-->
+    <style name="textInputEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorOnSurface">@color/greanPea</item>
+        <item name="colorPrimary">@color/greanPea</item>
+        <item name="colorPrimaryDark">@color/greanPea</item>
+        <item name="colorAccent">@color/greanPea</item>
+        <item name="colorControlActivated">@color/greanPea</item>
+        <item name="android:textColorHighlight">@color/greanPea</item>
+        <item name="android:textColorLink">@color/greanPea</item>
+        <item name="boxStrokeColor">@color/greanPea</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
+
 </resources>
