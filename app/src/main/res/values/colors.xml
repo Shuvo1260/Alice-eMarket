@@ -12,4 +12,5 @@
     <color name="blueStone">#005E4E</color>
     <color name="eden">#16505E</color>
     <color name="robinsEggBlue">#00d3cf</color>
+    <color name="blackShadow">#F3000000</color>
 </resources>

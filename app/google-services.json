@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "660894157104",
+    "firebase_url": "https://alice-emarket.firebaseio.com",
+    "project_id": "alice-emarket",
+    "storage_bucket": "alice-emarket.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660894157104:android:b022f9ca8bcf80852420f5",
+        "android_client_info": {
+          "package_name": "org.binaryitplanet.aliceemarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660894157104-pa1b206h5smk8pslu5n2g5iems0dihge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.binaryitplanet.aliceemarket",
+            "certificate_hash": "b33de2fc69d58f33e2d5f2217dd29f6dec7e7728"
+          }
+        },
+        {
+          "client_id": "660894157104-poo69t4ufdri7f1ciiqug6ogmtr4n5d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKj2E1KeTJrTKuyxNGVVXrAyTxcKw3e7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660894157104-poo69t4ufdri7f1ciiqug6ogmtr4n5d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
