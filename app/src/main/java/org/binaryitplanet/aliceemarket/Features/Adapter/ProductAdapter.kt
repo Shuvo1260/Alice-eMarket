@@ -64,8 +64,9 @@ class ProductAdapter(
                 .into(view.productImage)
 
             view.name.text = productList[position].name
-            view.price.text = Config.CURRENCY_SIGN + " " + productList[position].price
-                .toBigDecimal().setScale(2, RoundingMode.UP).toString()
+            view.price.text = productList[position].price
+                .toBigDecimal().setScale(2, RoundingMode.UP).toString() +
+                    " " + Config.CURRENCY_SIGN
 
 
         } catch (e: Exception) {

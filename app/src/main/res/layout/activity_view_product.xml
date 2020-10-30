@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/greanPeaTransparent"
         >
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -53,11 +54,236 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="sdflkafjdslkajfdslkjfads"
-                />
+                android:padding="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/productName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/app_name"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/greanPea"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/CategoryTitle"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"
+                        />
+                    <TextView
+                        android:id="@+id/category"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/app_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12sdp"
+                        />
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/app_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="@string/app_name"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:elevation="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp"
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/fernFrond"
+                            android:text="@string/seller_details"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_14sdp"
+                            />
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_user"
+                                />
+                            <TextView
+                                android:id="@+id/sellerName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/seller_name"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_phone"
+                                />
+                            <TextView
+                                android:id="@+id/sellerPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Location"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_email"
+                                />
+                            <TextView
+                                android:id="@+id/sellerEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Location"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            >
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_location"
+                                />
+                            <TextView
+                                android:id="@+id/sellerLocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Location"
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/seller_message"
+                    android:textColor="@color/fernFrond"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    />
+
+                <TextView
+                    android:id="@+id/sellerMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:autoLink="web|phone|email"
+                    />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

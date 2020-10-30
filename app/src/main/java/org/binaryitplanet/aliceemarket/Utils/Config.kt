@@ -5,7 +5,7 @@ class Config {
         // Toolbar title
         val PRODUCTS = "Products"
         val CACHE_SIZE = 1000
-        val CURRENCY_SIGN = "R"
+        val CURRENCY_SIGN = "ZAR"
 
         val PRODUCT_CATEGORIES = arrayListOf(
             "All",

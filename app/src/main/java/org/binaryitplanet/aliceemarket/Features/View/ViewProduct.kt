@@ -1,11 +1,13 @@
 package org.binaryitplanet.aliceemarket.Features.View
 
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -14,7 +16,9 @@ import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityViewProductBinding
+import java.math.RoundingMode
 
+@Suppress("DEPRECATION")
 class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
 
     private val TAG = "ViewProduct"
@@ -27,6 +31,10 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_product)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.navigationBarColor = ContextCompat.getColor(this, R.color.greanPeaTransparent)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR //For setting material color into black of the navigation bar
+        }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_product)
 
@@ -51,6 +59,19 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
             .load(product.imageUrl)
             .placeholder(R.drawable.ic_launcher)
             .into(binding.image)
+
+        binding.productName.text = product.name
+        binding.category.text = product.category
+        binding.price.text = product.price
+            .toBigDecimal().setScale(2, RoundingMode.UP).toString() +
+                " " + Config.CURRENCY_SIGN
+        binding.quantity.text = product.quantity
+
+        binding.sellerName.text = product.sellerName
+        binding.sellerPhone.text = product.sellerPhone
+        binding.sellerEmail.text = product.sellerEmail
+        binding.sellerLocation.text = product.sellerLocation
+        binding.sellerMessage.text = product.sellerMessage
     }
 
 
