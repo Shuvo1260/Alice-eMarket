@@ -33,7 +33,7 @@
                 android:hint="@string/Category"
                 android:textColorHint="@color/black"
                 app:hintTextColor="@color/black"
-                app:boxStrokeColor="@color/greanPea"
+                app:boxStrokeColor="@color/greenPea"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:theme="@style/textInputEditTextTheme"
@@ -65,7 +65,7 @@
             android:layout_margin="@dimen/_20sdp"
             android:src="@drawable/ic_add_product"
             app:tint="@color/white"
-            app:backgroundTint="@color/greanPea"
+            app:backgroundTint="@color/greenPea"
             />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="@color/greanPea"
+                app:contentScrim="@color/greenPea"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:theme="@style/toolbarMenuTheme"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     tools:text="@string/app_name"
                     android:textSize="@dimen/_16sdp"
-                    android:textColor="@color/greanPea"
+                    android:textColor="@color/greenPea"
                     android:textStyle="bold"
                     />
 

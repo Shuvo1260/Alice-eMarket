@@ -1,6 +1,8 @@
 package org.binaryitplanet.aliceemarket.Features.View
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +10,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -16,6 +19,7 @@ import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityViewProductBinding
+import java.lang.Exception
 import java.math.RoundingMode
 
 @Suppress("DEPRECATION")
@@ -41,7 +45,60 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
         isSeller = intent!!.getBooleanExtra(Config.IS_SELLER, false)
 
         setupToolbar()
+
+        setupListeners()
     }
+
+    private fun setupListeners() {
+        binding.phone.setOnClickListener {
+            openPhone()
+        }
+
+        binding.email.setOnClickListener {
+            openEmail()
+        }
+
+        binding.location.setOnClickListener {
+            openLocation()
+        }
+    }
+
+    private fun openLocation() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("http://maps.google.com/maps?q=loc:${product.sellerLocation}")
+        startActivity(intent)
+        overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
+    }
+
+    private fun openEmail() {
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.data = Uri.parse("mailto:")
+            intent.type = "message/rfc822"
+            intent.putExtra(
+                Intent.EXTRA_EMAIL, arrayOf(
+                    product.sellerEmail
+                )
+            )
+            startActivity(Intent.createChooser(intent, Config.CHOOSE_EMAIL_MESSAGE))
+            overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
+        } catch (e: Exception) {
+            Toast.makeText(
+                this,
+                Config.OPEN_EMAIL_FAILED_MESSAGE,
+                Toast.LENGTH_SHORT
+            ).show()
+            Log.d(TAG, "OpenEmailException: ${e.message}")
+        }
+    }
+
+    private fun openPhone() {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:${product.sellerPhone}")
+        startActivity(intent)
+        overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
+    }
+
     override fun onResume() {
         super.onResume()
 

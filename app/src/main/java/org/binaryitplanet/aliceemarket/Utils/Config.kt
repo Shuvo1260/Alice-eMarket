@@ -6,6 +6,8 @@ class Config {
         val PRODUCTS = "Products"
         val CACHE_SIZE = 1000
         val CURRENCY_SIGN = "ZAR"
+        val CHOOSE_EMAIL_MESSAGE = "Send email via..."
+        val OPEN_EMAIL_FAILED_MESSAGE = "Failed to open"
 
         val PRODUCT_CATEGORIES = arrayListOf(
             "All",
