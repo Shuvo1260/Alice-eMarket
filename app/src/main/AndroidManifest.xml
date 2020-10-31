@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AliceEMarket">
-        <activity android:name=".Features.View.ViewProduct"></activity>
+        <activity android:name=".Features.View.Seller.LoginActivity"></activity>
+        <activity android:name=".Features.View.Seller.SellerActivity" />
+        <activity android:name=".Features.View.ViewProduct" />
         <activity
             android:name=".Features.View.SplashScreen"
             android:screenOrientation="portrait">
@@ -32,7 +34,7 @@
         </activity>
         <activity
             android:name=".Features.View.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

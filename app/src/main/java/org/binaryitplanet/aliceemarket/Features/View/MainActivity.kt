@@ -1,5 +1,6 @@
 package org.binaryitplanet.aliceemarket.Features.View
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import org.binaryitplanet.aliceemarket.Features.Adapter.ProductAdapter
+import org.binaryitplanet.aliceemarket.Features.View.Seller.LoginActivity
+import org.binaryitplanet.aliceemarket.Features.View.Seller.SellerActivity
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -38,11 +41,13 @@ class MainActivity : AppCompatActivity() {
         dummyData()
 
         binding.addProduct.setOnClickListener {
-            if (FirebaseAuth.getInstance().currentUser == null) {
-                //
+            val intent = if (FirebaseAuth.getInstance().currentUser == null) {
+                Intent(this, LoginActivity::class.java)
             } else {
-                //
+                Intent(this, SellerActivity::class.java)
             }
+            startActivity(intent)
+            overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
         }
     }
 
