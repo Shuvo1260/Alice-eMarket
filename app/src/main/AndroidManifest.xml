@@ -20,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AliceEMarket">
-        <activity android:name=".Features.View.Seller.LoginActivity"></activity>
+        <activity android:name=".Features.View.Seller.EditProfile"></activity>
+        <activity android:name=".Features.View.Seller.ProfileActivity" />
+        <activity android:name=".Features.View.Seller.AddProduct" />
+        <activity android:name=".Features.View.Seller.LoginActivity" />
         <activity android:name=".Features.View.Seller.SellerActivity" />
         <activity android:name=".Features.View.ViewProduct" />
         <activity

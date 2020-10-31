@@ -11,5 +11,7 @@
     <string name="seller_name">Seller name:</string>
     <string name="seller_message">Seller Message</string>
     <string name="google_sign_in_message">Sign in with your google account\n to sell your products</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Sign out</string>
 
 </resources>
