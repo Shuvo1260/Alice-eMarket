@@ -13,5 +13,10 @@
     <string name="google_sign_in_message">Sign in with your google account\n to sell your products</string>
     <string name="profile">Profile</string>
     <string name="logout">Sign out</string>
+    <string name="done">Done</string>
+    <string name="productName">Product name</string>
+    <string name="priceHint">Price</string>
+    <string name="unit">Unit</string>
+    <string name="quantityHint">Quantity</string>
 
 </resources>

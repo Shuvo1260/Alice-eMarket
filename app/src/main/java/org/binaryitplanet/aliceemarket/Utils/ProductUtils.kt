@@ -9,6 +9,7 @@ data class ProductUtils(
     val price: Double,
     val category: String,
     val quantity: String,
+    val unit: String,
     val sellerName: String,
     val sellerPhone: String,
     val sellerEmail: String,

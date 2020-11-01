@@ -5,9 +5,12 @@ class Config {
         // Toolbar title
         val PRODUCTS = "Products"
         val LOGIN_TOOLBAR = "Sign In"
+        val EDIT_PRODUCT_TOOLBAR = "Edit product details"
+        val ADD_PRODUCT_TOOLBAR = "Add product details"
 
 
 
+        val REQUIRED_FIELD = "Required field"
         val CACHE_SIZE = 1000
         val CURRENCY_SIGN = "ZAR"
         val CHOOSE_EMAIL_MESSAGE = "Send email via..."
@@ -26,10 +29,31 @@ class Config {
             "Vegetable"
         )
 
+        val CATEGORIES = arrayListOf(
+                "Fruit",
+                "Livestock",
+                "Poultry",
+                "Vegetable"
+        )
+
+        val UNITS = arrayListOf(
+                "Piece",
+                "Gram",
+                "KG",
+                "Litter",
+                "Gallon",
+                "Centimeter",
+                "Foot",
+                "Inch",
+                "Kilometer",
+                "Meter",
+                "Tonne"
+        )
         val SEARCH_HINT = "Product name"
 
         // Intent data
         val PRODUCT = "Product"
         val IS_SELLER = "isSeller"
+        val IS_EDIT = "isEdit"
     }
 }

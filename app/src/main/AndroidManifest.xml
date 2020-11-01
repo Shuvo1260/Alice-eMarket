@@ -20,12 +20,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AliceEMarket">
-        <activity android:name=".Features.View.Seller.EditProfile"></activity>
-        <activity android:name=".Features.View.Seller.ProfileActivity" />
-        <activity android:name=".Features.View.Seller.AddProduct" />
-        <activity android:name=".Features.View.Seller.LoginActivity" />
-        <activity android:name=".Features.View.Seller.SellerActivity" />
-        <activity android:name=".Features.View.ViewProduct" />
+        <activity android:name=".Features.View.Seller.EditProfile"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Features.View.Seller.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Features.View.Seller.AddProduct"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Features.View.Seller.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Features.View.Seller.SellerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Features.View.ViewProduct"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Features.View.SplashScreen"
             android:screenOrientation="portrait">

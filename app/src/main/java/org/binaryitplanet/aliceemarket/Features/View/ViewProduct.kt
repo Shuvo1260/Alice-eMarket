@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.view_product_item.view.*
+import org.binaryitplanet.aliceemarket.Features.View.Seller.AddProduct
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -122,7 +123,7 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
         binding.price.text = product.price
             .toBigDecimal().setScale(2, RoundingMode.UP).toString() +
                 " " + Config.CURRENCY_SIGN
-        binding.quantity.text = product.quantity
+        binding.quantity.text = product.quantity + " " + product.unit
 
         binding.sellerName.text = product.sellerName
         binding.sellerPhone.text = product.sellerPhone
@@ -145,7 +146,11 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
 
             binding.toolbar.setOnMenuItemClickListener {
                 if (it.itemId == R.id.edit) {
-                    Log.d(TAG, "Edit")
+                    val intent = Intent(this, AddProduct::class.java)
+                    intent.putExtra(Config.IS_EDIT, true)
+                    intent.putExtra(Config.PRODUCT, product)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
                 } else if ( it.itemId == R.id.delete) {
                     //
                 }

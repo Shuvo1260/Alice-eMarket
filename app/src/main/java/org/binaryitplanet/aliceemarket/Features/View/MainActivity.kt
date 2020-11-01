@@ -69,12 +69,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun dummyData() {
         productList.clear()
-        productList.add(ProductUtils("1", "Product1", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Hasibul", "123456789", "email@gmail.com", "New Paltan, Azimpur, Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product2", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product3", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product4", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Vegetable", "5", "Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product5", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product6", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product1", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece", "Hasibul", "123456789", "email@gmail.com", "New Paltan, Azimpur, Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product2", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product3", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product4", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Vegetable", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product5", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
+        productList.add(ProductUtils("1", "Product6", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
 
         setupRecyclerView()
     }
