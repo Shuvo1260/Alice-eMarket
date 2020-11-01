@@ -121,6 +121,33 @@ class AddProduct : AppCompatActivity() {
 
 
     private fun validationChecker(): Boolean {
+        if (imageUrl.isNullOrEmpty()) {
+            Toast.makeText(
+                    this,
+                    Config.IMAGE_EMPTY_MESSAGE,
+                    Toast.LENGTH_SHORT
+            ).show()
+            return false
+        }
+
+        if (binding.productName.text.toString().isNullOrEmpty()) {
+            binding.productName.error = Config.REQUIRED_FIELD
+            binding.productName.requestFocus()
+            return false
+        }
+
+        if (binding.price.text.toString().isNullOrEmpty()) {
+            binding.price.error = Config.REQUIRED_FIELD
+            binding.price.requestFocus()
+            return false
+        }
+
+        if (binding.quantity.text.toString().isNullOrEmpty()) {
+            binding.quantity.error = Config.REQUIRED_FIELD
+            binding.quantity.requestFocus()
+            return false
+        }
+
         return true
     }
 

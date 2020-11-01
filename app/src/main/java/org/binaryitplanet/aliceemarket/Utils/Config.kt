@@ -12,6 +12,7 @@ class Config {
 
         val REQUIRED_FIELD = "Required field"
         val FAILED_MESSAGE = "Operation failed"
+        val IMAGE_EMPTY_MESSAGE = "Please select an image"
         val CACHE_SIZE = 1000
         val CURRENCY_SIGN = "ZAR"
         val CHOOSE_EMAIL_MESSAGE = "Send email via..."
