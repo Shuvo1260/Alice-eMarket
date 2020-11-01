@@ -134,4 +134,14 @@ dependencies {
 
     // Countdown timer library
     implementation 'com.github.iwgang:countdownview:2.1.6'
+
+    // Circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+    // Dagger library
+    def dagger_version = "2.29.1"
+    api "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
