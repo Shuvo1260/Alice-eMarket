@@ -18,5 +18,6 @@
     <string name="priceHint">Price</string>
     <string name="unit">Unit</string>
     <string name="quantityHint">Quantity</string>
+    <string name="contactInformation">Contact Information</string>
 
 </resources>
