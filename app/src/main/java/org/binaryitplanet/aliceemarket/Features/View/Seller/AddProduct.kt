@@ -153,6 +153,7 @@ class AddProduct : AppCompatActivity() {
 
     private fun setupView() {
 
+        imageUrl = product.imageUrl
         previewImage(product.imageUrl)
         binding.productName.setText(product.name)
         binding.price.setText(product.price.toString())
