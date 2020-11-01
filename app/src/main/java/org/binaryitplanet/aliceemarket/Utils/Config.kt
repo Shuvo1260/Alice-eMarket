@@ -11,6 +11,7 @@ class Config {
 
 
         val REQUIRED_FIELD = "Required field"
+        val FAILED_MESSAGE = "Operation failed"
         val CACHE_SIZE = 1000
         val CURRENCY_SIGN = "ZAR"
         val CHOOSE_EMAIL_MESSAGE = "Send email via..."
@@ -20,6 +21,7 @@ class Config {
         val SIGN_IN_SUCCESSFUL_MESSAGE = "Successfully signed in"
         val SIGN_IN_FAILED_MESSAGE = "Sign in failed"
         val RC_SIGN_IN = 100
+        val PICK_IMAGE_REQUEST_CODE = 101
 
         val PRODUCT_CATEGORIES = arrayListOf(
             "All",
@@ -55,5 +57,6 @@ class Config {
         val PRODUCT = "Product"
         val IS_SELLER = "isSeller"
         val IS_EDIT = "isEdit"
+        val PICK_IMAGE = "Pick image"
     }
 }

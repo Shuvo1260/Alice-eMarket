@@ -1,12 +1,17 @@
 package org.binaryitplanet.aliceemarket.Features.View.Seller
 
+import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -20,6 +25,8 @@ class AddProduct : AppCompatActivity() {
     private lateinit var product: ProductUtils
 
     private var isEdit = false
+
+    private var imageUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +43,53 @@ class AddProduct : AppCompatActivity() {
         setupDropDowns()
         setupToolbar()
 
+        binding.imageCard.setOnClickListener {
+            val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(permissions, Config.PICK_IMAGE_REQUEST_CODE)
+            }
+        }
+
+    }
+
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == Config.PICK_IMAGE_REQUEST_CODE && grantResults.isNotEmpty()) {
+            val galleryIntent = Intent()
+            galleryIntent.type = "image/*"
+            galleryIntent.action = Intent.ACTION_GET_CONTENT
+            val intent = Intent.createChooser(galleryIntent, Config.PICK_IMAGE)
+            startActivityForResult(intent, Config.PICK_IMAGE_REQUEST_CODE)
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK
+            && requestCode == Config.PICK_IMAGE_REQUEST_CODE
+            && data != null
+            && data.data != null
+        ) {
+            try {
+                val imageUri = data.data
+                imageUrl = imageUri.toString()
+                Log.d(TAG, "ImagePath: $imageUrl")
+                previewImage(imageUrl!!)
+            } catch (e: Exception) {
+                Log.d(TAG, "Image loading failed: ${e.message}")
+                Toast.makeText(
+                    this,
+                    Config.FAILED_MESSAGE,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        }
     }
 
     private fun setupDropDowns() {
@@ -71,6 +125,8 @@ class AddProduct : AppCompatActivity() {
     }
 
     private fun setupView() {
+
+        previewImage(product.imageUrl)
         binding.productName.setText(product.name)
         binding.price.setText(product.price.toString())
         binding.quantity.setText(product.quantity)
@@ -79,6 +135,17 @@ class AddProduct : AppCompatActivity() {
 
     }
 
+
+    private fun previewImage(imageUrl: String) {
+        Glide
+            .with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_broker_image)
+            .into(binding.productImage)
+
+        if (binding.addImageIcon.visibility == View.VISIBLE)
+            binding.addImageIcon.visibility = View.GONE
+    }
 
     private fun setupToolbar() {
         if (isEdit) {
@@ -97,7 +164,11 @@ class AddProduct : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done) {
                 if (validationChecker()) {
-                    //
+                    if (isEdit){
+                        //
+                    } else {
+                        //
+                    }
                 }
             }
             return@setOnMenuItemClickListener true
