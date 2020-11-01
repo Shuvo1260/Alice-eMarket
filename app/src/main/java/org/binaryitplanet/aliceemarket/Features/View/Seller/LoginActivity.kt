@@ -100,7 +100,7 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().currentUser?.let {
                         val intent = Intent(this, SellerActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(R.anim.righttoleft, R.anim.lefttoright)
+                        overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
                         finish()
                     }
 
