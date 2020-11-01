@@ -7,6 +7,7 @@ class Config {
         val LOGIN_TOOLBAR = "Sign In"
         val EDIT_PRODUCT_TOOLBAR = "Edit product details"
         val ADD_PRODUCT_TOOLBAR = "Add product details"
+        val EDIT_PROFILE_TOOLBAR = "Edit profile"
 
 
 

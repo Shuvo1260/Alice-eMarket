@@ -19,5 +19,7 @@
     <string name="unit">Unit</string>
     <string name="quantityHint">Quantity</string>
     <string name="contactInformation">Contact Information</string>
+    <string name="phoneHint">Phone number</string>
+    <string name="location">Location</string>
 
 </resources>
