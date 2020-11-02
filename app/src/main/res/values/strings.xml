@@ -21,5 +21,9 @@
     <string name="contactInformation">Contact Information</string>
     <string name="phoneHint">Phone number</string>
     <string name="location">Location</string>
+    <string name="fruits">Fruits</string>
+    <string name="vegetable">Vegetable</string>
+    <string name="poultry">Poultry</string>
+    <string name="livestock">Livestock</string>
 
 </resources>

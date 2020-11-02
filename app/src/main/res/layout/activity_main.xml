@@ -26,27 +26,27 @@
                     />
             </com.google.android.material.appbar.AppBarLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/Category"
-                android:textColorHint="@color/black"
-                app:hintTextColor="@color/black"
-                app:boxStrokeColor="@color/greenPea"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:theme="@style/textInputEditTextTheme"
-                app:theme="@style/textInputEditTextTheme"
-                >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="@string/Category"-->
+<!--                android:textColorHint="@color/black"-->
+<!--                app:hintTextColor="@color/black"-->
+<!--                app:boxStrokeColor="@color/greenPea"-->
+<!--                android:layout_marginTop="@dimen/_2sdp"-->
+<!--                android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--                android:theme="@style/textInputEditTextTheme"-->
+<!--                app:theme="@style/textInputEditTextTheme"-->
+<!--                >-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/categorySelection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:textColor="@android:color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/categorySelection"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="none"-->
+<!--                    android:textColor="@android:color/black" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"

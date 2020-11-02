@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setupToolbar()
-        setupCategory()
+//        setupCategory()
 
         dummyData()
 
@@ -51,21 +51,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupCategory() {
-        binding.categorySelection.setText(Config.PRODUCT_CATEGORIES[0])
-        val dropDownAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1,
-            Config.PRODUCT_CATEGORIES
-        )
-
-        binding.categorySelection.setAdapter(dropDownAdapter)
-
-        binding.categorySelection.setOnItemClickListener { parent, view, position, id ->
-            Log.d(TAG, "ClickedPosition: $position")
-            adapter.getCategoryFilter().filter(Config.PRODUCT_CATEGORIES[position])
-        }
-    }
+//    private fun setupCategory() {
+//        binding.categorySelection.setText(Config.PRODUCT_CATEGORIES[0])
+//        val dropDownAdapter = ArrayAdapter(
+//            this,
+//            android.R.layout.simple_list_item_1,
+//            Config.PRODUCT_CATEGORIES
+//        )
+//
+//        binding.categorySelection.setAdapter(dropDownAdapter)
+//
+//        binding.categorySelection.setOnItemClickListener { parent, view, position, id ->
+//            Log.d(TAG, "ClickedPosition: $position")
+//            adapter.getCategoryFilter().filter(Config.PRODUCT_CATEGORIES[position])
+//        }
+//    }
 
     private fun dummyData() {
         productList.clear()

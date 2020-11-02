@@ -60,5 +60,6 @@ class Config {
         val IS_SELLER = "isSeller"
         val IS_EDIT = "isEdit"
         val PICK_IMAGE = "Pick image"
+        val PRODUCT_TYPE = "productType"
     }
 }

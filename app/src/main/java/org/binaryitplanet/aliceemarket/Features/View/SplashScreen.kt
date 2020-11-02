@@ -26,7 +26,7 @@ class SplashScreen : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            var intent = Intent(applicationContext, MainActivity::class.java)
+            var intent = Intent(applicationContext, HomeActivity::class.java)
 
             startActivity(intent)
             overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)

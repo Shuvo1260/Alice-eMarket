@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AliceEMarket" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.AliceEMarket" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/greenPea</item>
         <item name="colorPrimaryVariant">@color/greenPea</item>
@@ -12,5 +12,32 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="toolbarMenuTheme" parent="Theme.AppCompat.Light">
+        <!-- Customizing toolbar theme theme here. -->
+        <item name="colorAccent">@color/white</item>
+        <item name="editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:itemBackground">@color/greenPea</item>
+    </style>
+
+
+    <!--    Text input edittext theme-->
+    <style name="textInputEditTextTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorOnSurface">@color/greenPea</item>
+        <item name="colorPrimary">@color/greenPea</item>
+        <item name="colorPrimaryDark">@color/greenPea</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlActivated">@color/greenPea</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHighlight">@color/white</item>
+        <item name="android:textColorLink">@color/white</item>
+        <item name="boxStrokeColor">@color/greenPea</item>
+        <item name="boxStrokeWidth">2dp</item>
     </style>
 </resources>
