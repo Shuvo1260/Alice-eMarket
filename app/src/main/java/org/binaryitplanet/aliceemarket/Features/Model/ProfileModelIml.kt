@@ -38,7 +38,8 @@ class ProfileModelIml @Inject constructor(): ProfileModel {
                         callback.onFailed(error.message!!)
                         return@addSnapshotListener
                     }
-                    callback.onSuccess(value?.toObject(ProfileUtils::class.java) as ProfileUtils)
+                    if (value != null)
+                        callback.onSuccess(value?.toObject(ProfileUtils::class.java))
                 }
     }
 }

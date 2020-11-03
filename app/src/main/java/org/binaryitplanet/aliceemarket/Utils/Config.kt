@@ -24,6 +24,8 @@ class Config {
         val SIGN_IN_PROGRESS_MESSAGE = "Please wait a moment"
         val SIGN_IN_SUCCESSFUL_MESSAGE = "Successfully signed in"
         val SIGN_IN_FAILED_MESSAGE = "Sign in failed"
+        val PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
+        val PROFILE_UPDATE_FAILED = "Profile update failed"
         val RC_SIGN_IN = 100
         val PICK_IMAGE_REQUEST_CODE = 101
 
@@ -59,6 +61,7 @@ class Config {
 
         // Intent data
         val PRODUCT = "Product"
+        val PROFILE = "Profile"
         val IS_SELLER = "isSeller"
         val IS_EDIT = "isEdit"
         val PICK_IMAGE = "Pick image"

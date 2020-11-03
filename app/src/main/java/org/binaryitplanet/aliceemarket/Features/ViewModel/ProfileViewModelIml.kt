@@ -24,7 +24,7 @@ class ProfileViewModelIml @Inject constructor(
 
     init {
         val currentUser = FirebaseAuth.getInstance().currentUser!!
-        userId = currentUser.displayName!!.split("@")[0]
+        userId = currentUser.email!!.split("@")[0]
     }
 
 

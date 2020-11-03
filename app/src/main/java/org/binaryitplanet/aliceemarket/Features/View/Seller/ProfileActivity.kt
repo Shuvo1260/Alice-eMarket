@@ -13,6 +13,7 @@ import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
+import org.binaryitplanet.aliceemarket.Utils.ProfileUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
@@ -24,6 +25,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var currentUser: FirebaseUser
 
     private lateinit var profileViewModel: ProfileViewModelIml
+
+    private var profile: ProfileUtils? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,7 @@ class ProfileActivity : AppCompatActivity() {
         profileViewModel.getProfileSuccess.observe(
                 this,
                 {
+                    profile = it
                     binding.phone.text = it?.phoneNumber
                     binding.location.text = it?.location
                 }
@@ -90,6 +94,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.edit) {
                 val intent = Intent(this, EditProfile::class.java)
+                intent.putExtra(Config.PROFILE, profile)
                 startActivity(intent)
                 overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
             }
