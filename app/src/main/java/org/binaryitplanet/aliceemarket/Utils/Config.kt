@@ -8,12 +8,14 @@ class Config {
         val EDIT_PRODUCT_TOOLBAR = "Edit product details"
         val ADD_PRODUCT_TOOLBAR = "Add product details"
         val EDIT_PROFILE_TOOLBAR = "Edit profile"
+        val SET_PROFILE = "Profile"
 
 
 
         val REQUIRED_FIELD = "Required field"
         val FAILED_MESSAGE = "Operation failed"
         val IMAGE_EMPTY_MESSAGE = "Please select an image"
+        val COMPLETE_PROFILE_MESSAGE = "Please complete your profile"
         val CACHE_SIZE = 1000
         val CURRENCY_SIGN = "ZAR"
         val CHOOSE_EMAIL_MESSAGE = "Send email via..."
@@ -61,5 +63,10 @@ class Config {
         val IS_EDIT = "isEdit"
         val PICK_IMAGE = "Pick image"
         val PRODUCT_TYPE = "productType"
+
+
+        // Database paths
+        val PROFILE_PATH = "Profiles"
+        val PRODUCT_PATH = "Products"
     }
 }

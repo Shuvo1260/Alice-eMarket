@@ -5,16 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.binaryitplanet.aliceemarket.Features.Adapter.ProductAdapter
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModel
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
+import org.binaryitplanet.aliceemarket.Utils.ProfileUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivitySellerBinding
 
 class SellerActivity : AppCompatActivity() {
@@ -28,6 +35,10 @@ class SellerActivity : AppCompatActivity() {
 
     private lateinit var adapter: ProductAdapter
 
+    private lateinit var profileViewModel: ProfileViewModelIml
+
+    private var profileUtls: ProfileUtils? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller)
@@ -38,11 +49,54 @@ class SellerActivity : AppCompatActivity() {
         setupToolbar()
 
         binding.addProduct.setOnClickListener {
-            val intent = Intent(this, AddProduct::class.java)
-            intent.putExtra(Config.IS_EDIT, false)
-            startActivity(intent)
-            overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+            if (profileUtls == null) {
+                Snackbar
+                        .make(
+                                binding.addProduct,
+                                Config.COMPLETE_PROFILE_MESSAGE,
+                                Snackbar.LENGTH_LONG
+                        ).setAction(
+                                Config.SET_PROFILE
+                        ) {
+                            val intent = Intent(this, ProfileActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
+                        }
+                        .setActionTextColor(ContextCompat.getColor(this, R.color.robinsEggBlue))
+                        .show()
+
+            } else {
+                val intent = Intent(this, AddProduct::class.java)
+                intent.putExtra(Config.IS_EDIT, false)
+                startActivity(intent)
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
+            }
         }
+
+        val appComponents = DaggerAppComponents.create()
+
+        profileViewModel = appComponents.getProfileViewModel()
+
+        setupListeners()
+
+        profileViewModel.getProfile()
+
+    }
+
+    private fun setupListeners() {
+        profileViewModel.getProfileSuccess.observe(
+                this,
+                {
+                    profileUtls = it
+                }
+        )
+
+        profileViewModel.getProfileFailed.observe(
+                this,
+                {
+                    Log.d(TAG, "ProfileFetchingFailed")
+                }
+        )
     }
 
     override fun onResume() {
