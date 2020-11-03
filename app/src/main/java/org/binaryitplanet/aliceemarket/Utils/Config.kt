@@ -59,6 +59,20 @@ class Config {
         )
         val SEARCH_HINT = "Product name"
 
+        // Product Items
+        val ID = "id"
+        val NAME = "name"
+        val IMAGE_URL = "imageUrl"
+        val PRICE = "prince"
+        val CATEGORY = "category"
+        val QUANTITY = "quantity"
+        val UNIT = "unit"
+        val SELLER_NAME = "sellerName"
+        val SELLER_PHONE = "sellerPhone"
+        val SELLER_EMAIL = "sellerEmail"
+        val SELLER_LOCATION = "sellerLocation"
+        val SELLER_MESSAGE = "sellerMessage"
+
         // Intent data
         val PRODUCT = "Product"
         val PROFILE = "Profile"
