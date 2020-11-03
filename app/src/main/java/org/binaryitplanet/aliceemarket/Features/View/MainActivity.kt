@@ -88,6 +88,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         binding.toolbar.title = Config.PRODUCTS
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.toolbar.inflateMenu(R.menu.main_activity_menu)
 
@@ -111,6 +113,12 @@ class MainActivity : AppCompatActivity() {
 
                 }
         )
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        Log.d(TAG, "Back pressed")
+        onBackPressed()
+        return true
     }
 
     override fun onBackPressed() {

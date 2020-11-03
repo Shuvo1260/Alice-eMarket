@@ -24,7 +24,7 @@ import java.lang.Exception
 import java.math.RoundingMode
 
 @Suppress("DEPRECATION")
-class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
+class ViewProduct : AppCompatActivity() {
 
     private val TAG = "ViewProduct"
 
@@ -170,9 +170,5 @@ class ViewProduct : AppCompatActivity(), MenuItem.OnMenuItemClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
         overridePendingTransition(R.anim.righttoposition, R.anim.bottomtotop)
-    }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        return true
     }
 }
