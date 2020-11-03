@@ -14,6 +14,10 @@ interface ProductViewModel {
             product: ProductUtils
     )
 
+    fun getProduct(
+            id: String
+    )
+
     fun getProductListByUserId()
 
     fun getProductList(category: String)

@@ -15,7 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.view_product_item.view.*
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
 import org.binaryitplanet.aliceemarket.Features.View.Seller.AddProduct
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -33,6 +35,8 @@ class ViewProduct : AppCompatActivity() {
 
     private lateinit var binding: ActivityViewProductBinding
 
+    private lateinit var productViewModel: ProductViewModelIml
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_product)
@@ -44,6 +48,14 @@ class ViewProduct : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_product)
 
         isSeller = intent!!.getBooleanExtra(Config.IS_SELLER, false)
+        product = intent!!.getSerializableExtra(Config.PRODUCT) as ProductUtils
+
+
+
+        var appComponents = DaggerAppComponents.create()
+
+        productViewModel = appComponents.getProductViewModel()
+        productViewModel.getProduct(product.id)
 
         setupToolbar()
 
@@ -62,6 +74,15 @@ class ViewProduct : AppCompatActivity() {
         binding.location.setOnClickListener {
             openLocation()
         }
+
+        productViewModel.onGetProductSuccessLiveData
+                .observe(
+                        this,
+                        {
+                            product = it
+                            setupViews()
+                        }
+                )
     }
 
     private fun openLocation() {
@@ -103,7 +124,6 @@ class ViewProduct : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        product = intent!!.getSerializableExtra(Config.PRODUCT) as ProductUtils
 
         setupViews()
     }

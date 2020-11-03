@@ -89,7 +89,40 @@ class ProductModelIml @Inject constructor(): ProductModel {
     }
 
     override fun getProduct(id: String, callback: OnRequestCompleteListener<ProductUtils>) {
-        //
+
+        FirebaseFirestore
+                .getInstance()
+                .collection(Config.PRODUCT_PATH)
+                .document(id)
+                .addSnapshotListener { value, error ->
+                    if (error != null) {
+                        Log.d(TAG, "ProductFetchingError: ${error.message}")
+                        callback.onFailed(error.message!!)
+                        return@addSnapshotListener
+                    }
+
+                    if (value != null) {
+                        var document = value
+                        val product = ProductUtils(
+                                document.getString(Config.ID)!!,
+                                document.getString(Config.NAME)!!,
+                                document.getString(Config.IMAGE_URL)!!,
+                                document.getDouble(Config.PRICE)!!,
+                                document.getString(Config.CATEGORY)!!,
+                                document.getString(Config.QUANTITY)!!,
+                                document.getString(Config.UNIT)!!,
+                                document.getString(Config.SELLER_NAME)!!,
+                                document.getString(Config.SELLER_PHONE)!!,
+                                document.getString(Config.SELLER_EMAIL)!!,
+                                document.getString(Config.SELLER_LOCATION)!!,
+                                document.getString(Config.SELLER_MESSAGE)!!
+                        )
+
+                        callback.onSuccess(product)
+                    } else {
+                        callback.onFailed("Product fetching failed")
+                    }
+                }
     }
 
     override fun getProductListByUserId(userEmail: String, callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {

@@ -27,6 +27,9 @@ class ProductViewModelIml @Inject constructor(
     val onGetListSuccessLiveData = MutableLiveData<MutableList<ProductUtils>>()
     val onGetListByUserIdSuccessLiveData = MutableLiveData<MutableList<ProductUtils>>()
 
+    val onGetProductSuccessLiveData = MutableLiveData<ProductUtils>()
+    val onGetProductFailedLiveData = MutableLiveData<String>()
+
     init {
         val currentUser = FirebaseAuth.getInstance().currentUser!!
         userEmail = currentUser.email!!
@@ -85,6 +88,24 @@ class ProductViewModelIml @Inject constructor(
 
                             override fun onFailed(message: String) {
                                 onDeleteFailedLiveData.postValue(message)
+                            }
+
+                        }
+                )
+    }
+
+    override fun getProduct(id: String) {
+        model
+                .getProduct(
+                        id,
+                        object : OnRequestCompleteListener<ProductUtils>{
+                            override fun onSuccess(data: ProductUtils) {
+                                onGetProductSuccessLiveData.postValue(data)
+                            }
+
+                            override fun onFailed(message: String) {
+                                Log.d(TAG, "ProductFetchingFailed: $message")
+                                onGetProductFailedLiveData.postValue(message)
                             }
 
                         }
