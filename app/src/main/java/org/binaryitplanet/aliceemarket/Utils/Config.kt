@@ -24,6 +24,10 @@ class Config {
         val SIGN_IN_PROGRESS_MESSAGE = "Please wait a moment"
         val SIGN_IN_SUCCESSFUL_MESSAGE = "Successfully signed in"
         val SIGN_IN_FAILED_MESSAGE = "Sign in failed"
+        val PRODUCT_UPLOADED_SUCCESSFULLY = "Product uploaded successfully"
+        val PRODUCT_UPLOADING_FAILED = "Product uploading failed"
+        val PRODUCT_DELETED_SUCCESSFULLY = "Product deleted successfully"
+        val PRODUCT_DELETION_FAILED = "Product deletion failed"
         val PROFILE_UPDATED_SUCCESSFULLY = "Profile updated successfully"
         val PROFILE_UPDATE_FAILED = "Profile update failed"
         val RC_SIGN_IN = 100

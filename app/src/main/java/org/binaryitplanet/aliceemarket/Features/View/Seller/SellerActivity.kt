@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.binaryitplanet.aliceemarket.Features.Adapter.ProductAdapter
 import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModel
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 import org.binaryitplanet.aliceemarket.R
@@ -36,6 +37,8 @@ class SellerActivity : AppCompatActivity() {
     private lateinit var adapter: ProductAdapter
 
     private lateinit var profileViewModel: ProfileViewModelIml
+
+    private lateinit var productViewModel: ProductViewModelIml
 
     private var profileUtls: ProfileUtils? = null
 
@@ -68,6 +71,7 @@ class SellerActivity : AppCompatActivity() {
             } else {
                 val intent = Intent(this, AddProduct::class.java)
                 intent.putExtra(Config.IS_EDIT, false)
+                intent.putExtra(Config.PROFILE, profileUtls)
                 startActivity(intent)
                 overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
             }
@@ -76,6 +80,9 @@ class SellerActivity : AppCompatActivity() {
         val appComponents = DaggerAppComponents.create()
 
         profileViewModel = appComponents.getProfileViewModel()
+        productViewModel = appComponents.getProductViewModel()
+
+        productViewModel.getProductListByUserId()
 
         setupListeners()
 
@@ -97,23 +104,15 @@ class SellerActivity : AppCompatActivity() {
                     Log.d(TAG, "ProfileFetchingFailed")
                 }
         )
-    }
 
-    override fun onResume() {
-        super.onResume()
-        dummyData()
-    }
-
-    private fun dummyData() {
-        productList.clear()
-        productList.add(ProductUtils("1", "Product1", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "New Paltan, Azimpur, Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product2", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product3", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product4", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Vegetable", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product5", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product6", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-
-        setupRecyclerView()
+        productViewModel.onGetListByUserIdSuccessLiveData
+                .observe(
+                        this,
+                        {
+                            productList = it as ArrayList<ProductUtils>
+                            setupRecyclerView()
+                        }
+                )
     }
 
     private fun setupRecyclerView() {

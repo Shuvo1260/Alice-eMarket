@@ -12,8 +12,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import org.binaryitplanet.aliceemarket.Features.Adapter.ProductAdapter
+import org.binaryitplanet.aliceemarket.Features.Components.AppComponents
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
 import org.binaryitplanet.aliceemarket.Features.View.Seller.LoginActivity
 import org.binaryitplanet.aliceemarket.Features.View.Seller.SellerActivity
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ProductAdapter
 
+    private lateinit var productViewModel: ProductViewModelIml
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,9 +41,16 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setupToolbar()
-//        setupCategory()
 
-        dummyData()
+        var appComponents = DaggerAppComponents.create()
+
+        productViewModel = appComponents.getProductViewModel()
+
+        var category = intent?.getStringExtra(Config.PRODUCT_TYPE)!!
+
+        productViewModel.getProductList(category)
+
+        setupListener()
 
         binding.addProduct.setOnClickListener {
             val intent = if (FirebaseAuth.getInstance().currentUser == null) {
@@ -51,32 +63,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun setupCategory() {
-//        binding.categorySelection.setText(Config.PRODUCT_CATEGORIES[0])
-//        val dropDownAdapter = ArrayAdapter(
-//            this,
-//            android.R.layout.simple_list_item_1,
-//            Config.PRODUCT_CATEGORIES
-//        )
-//
-//        binding.categorySelection.setAdapter(dropDownAdapter)
-//
-//        binding.categorySelection.setOnItemClickListener { parent, view, position, id ->
-//            Log.d(TAG, "ClickedPosition: $position")
-//            adapter.getCategoryFilter().filter(Config.PRODUCT_CATEGORIES[position])
-//        }
-//    }
-
-    private fun dummyData() {
-        productList.clear()
-        productList.add(ProductUtils("1", "Product1", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece", "Hasibul", "123456789", "email@gmail.com", "New Paltan, Azimpur, Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product2", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product3", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product4", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Vegetable", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product5", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Fruit", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-        productList.add(ProductUtils("1", "Product6", "https://cdn.britannica.com/17/196817-050-6A15DAC3/vegetables.jpg", 12.304, "Poultry", "5", "Piece","Hasibul", "123456789", "email@gmail.com", "Dhaka, Bangladesh", "This is a text message."))
-
-        setupRecyclerView()
+    private fun setupListener() {
+        productViewModel
+                .onGetListSuccessLiveData
+                .observe(
+                        this,
+                        {
+                            productList = it as ArrayList<ProductUtils>
+                            setupRecyclerView()
+                        }
+                )
     }
 
     private fun setupRecyclerView() {

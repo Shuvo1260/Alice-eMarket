@@ -25,6 +25,7 @@ interface ProductModel {
     )
 
     fun getProductList(
+            category: String,
             callback: OnRequestCompleteListener<ArrayList<ProductUtils>>
     )
 

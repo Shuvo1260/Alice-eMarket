@@ -42,13 +42,14 @@ class ProductModelIml @Inject constructor(): ProductModel {
                                 .getInstance()
                                 .collection(Config.PRODUCT_PATH)
                                 .document(product.id)
-                                .addSnapshotListener { value, error ->
-                                    if (error != null) {
-                                        Log.d(TAG, "UploadProductFailed: ${error.message}")
+                                .set(product)
+                                .addOnCompleteListener {task ->
+                                    if (task.isSuccessful) {
+                                        callback.onSuccess(true)
+                                    } else {
+                                        Log.d(TAG, "UploadProductFailed: ${task.result.toString()}")
                                         callback.onFailed("Product uploading failed")
-                                        return@addSnapshotListener
                                     }
-                                    callback.onSuccess(true)
                                 }
                     } catch (e: Exception) {
                         Log.d(TAG, "ImageException: ${e.message} ")
@@ -141,12 +142,13 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
-    override fun getProductList(callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {
+    override fun getProductList(category: String, callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {
         var productList = arrayListOf<ProductUtils>()
 
         FirebaseFirestore
                 .getInstance()
                 .collection(Config.PRODUCT_PATH)
+                .whereEqualTo(Config.CATEGORY, category)
                 .addSnapshotListener { value, error ->
                     if (error != null) {
                         Log.d(TAG, "ProductListFailed: ${error.message}")

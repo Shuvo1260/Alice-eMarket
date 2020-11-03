@@ -2,6 +2,7 @@ package org.binaryitplanet.aliceemarket.Features.View.Seller
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +13,16 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
+import org.binaryitplanet.aliceemarket.Utils.ConfigFunction
 import org.binaryitplanet.aliceemarket.Utils.ProductUtils
+import org.binaryitplanet.aliceemarket.Utils.ProfileUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityAddProductBinding
+import java.util.*
 
 class AddProduct : AppCompatActivity() {
 
@@ -26,7 +33,11 @@ class AddProduct : AppCompatActivity() {
 
     private var isEdit = false
 
+    private var imageUri: Uri? = null
     private var imageUrl: String? = null
+    private lateinit var seller: ProfileUtils
+
+    private lateinit var productViewModel: ProductViewModelIml
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +45,26 @@ class AddProduct : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_product)
 
+        var appComponents = DaggerAppComponents.create()
+
+        productViewModel = appComponents.getProductViewModel()
+
         isEdit = intent?.getBooleanExtra(Config.IS_EDIT, false)!!
         if (isEdit) {
             product = intent?.getSerializableExtra(Config.PRODUCT) as ProductUtils
+            seller = ProfileUtils(
+                    product.sellerPhone,
+                    product.sellerLocation
+            )
             setupView()
+        } else {
+            seller = intent?.getSerializableExtra(Config.PROFILE) as ProfileUtils
         }
 
         setupDropDowns()
         setupToolbar()
+
+        setupListener()
 
         binding.imageCard.setOnClickListener {
             val permissions:Array<String> = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -50,7 +73,66 @@ class AddProduct : AppCompatActivity() {
             }
         }
 
+
+
     }
+
+    private fun setupListener() {
+        productViewModel.onUploadSuccessLiveData
+                .observe(
+                        this,
+                        {
+                            if (it) {
+                                Toast.makeText(
+                                        this,
+                                        Config.PRODUCT_UPLOADED_SUCCESSFULLY,
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                                onBackPressed()
+                            }
+                        }
+                )
+
+        productViewModel.onUploadFailedLiveData
+                .observe(
+                        this,
+                        {
+                            Toast.makeText(
+                                    this,
+                                    it,
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                )
+    }
+
+
+    private fun saveProduct() {
+        var id = Calendar.getInstance().timeInMillis.toString()
+        var imageName = "$id.${ConfigFunction.getFileExtension(this, imageUri!!)}"
+        var currentUser = FirebaseAuth.getInstance().currentUser!!
+        var product = ProductUtils(
+                id,
+                binding.productName.text.toString(),
+                imageUrl!!,
+                binding.price.text.toString().toDouble(),
+                binding.category.text.toString(),
+                binding.quantity.text.toString(),
+                binding.unit.text.toString(),
+                currentUser.displayName!!,
+                seller.phoneNumber!!,
+                currentUser.email!!,
+                seller.location!!,
+                binding.sellerMessage.text.toString()
+        )
+
+        productViewModel.uploadProduct(
+                imageName,
+                imageUri!!,
+                product
+        )
+    }
+
 
     override fun onRequestPermissionsResult(
             requestCode: Int,
@@ -76,7 +158,7 @@ class AddProduct : AppCompatActivity() {
             && data.data != null
         ) {
             try {
-                val imageUri = data.data
+                imageUri = data.data
                 imageUrl = imageUri.toString()
                 Log.d(TAG, "ImagePath: $imageUrl")
                 previewImage(imageUrl!!)
@@ -192,11 +274,7 @@ class AddProduct : AppCompatActivity() {
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.done) {
                 if (validationChecker()) {
-                    if (isEdit){
-                        //
-                    } else {
-                        //
-                    }
+                    saveProduct()
                 }
             }
             return@setOnMenuItemClickListener true
