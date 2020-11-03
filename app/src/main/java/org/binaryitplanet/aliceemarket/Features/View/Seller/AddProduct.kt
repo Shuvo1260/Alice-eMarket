@@ -1,6 +1,7 @@
 package org.binaryitplanet.aliceemarket.Features.View.Seller
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -24,6 +25,7 @@ import org.binaryitplanet.aliceemarket.Utils.ProfileUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityAddProductBinding
 import java.util.*
 
+@Suppress("DEPRECATION")
 class AddProduct : AppCompatActivity() {
 
     private val TAG = "AddProduct"
@@ -38,6 +40,8 @@ class AddProduct : AppCompatActivity() {
     private lateinit var seller: ProfileUtils
 
     private lateinit var productViewModel: ProductViewModelIml
+
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +94,7 @@ class AddProduct : AppCompatActivity() {
                                 ).show()
                                 onBackPressed()
                             }
+                            progressDialog.dismiss()
                         }
                 )
 
@@ -102,14 +107,29 @@ class AddProduct : AppCompatActivity() {
                                     it,
                                     Toast.LENGTH_SHORT
                             ).show()
+                            progressDialog.dismiss()
                         }
                 )
     }
 
 
     private fun saveProduct() {
-        var id = Calendar.getInstance().timeInMillis.toString()
-        var imageName = "$id.${ConfigFunction.getFileExtension(this, imageUri!!)}"
+
+        progressDialog = ProgressDialog(this)
+        progressDialog.setTitle(Config.PRODUCT_UPLOADING_TITLE)
+        progressDialog.setMessage(Config.PLEASE_WAIT)
+        progressDialog.setIcon(R.mipmap.ic_launcher)
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+
+        var id = if (isEdit) product.id else
+            Calendar.getInstance().timeInMillis.toString()
+
+        var imageName = if (imageUri != null)
+            "$id.${ConfigFunction.getFileExtension(this, imageUri!!)}"
+        else
+            null
+
         var currentUser = FirebaseAuth.getInstance().currentUser!!
         var product = ProductUtils(
                 id,
@@ -128,7 +148,7 @@ class AddProduct : AppCompatActivity() {
 
         productViewModel.uploadProduct(
                 imageName,
-                imageUri!!,
+                imageUri,
                 product
         )
     }

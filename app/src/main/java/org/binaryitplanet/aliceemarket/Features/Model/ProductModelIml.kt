@@ -14,14 +14,7 @@ import javax.inject.Inject
 class ProductModelIml @Inject constructor(): ProductModel {
 
     private val TAG = "ProductModel"
-
-    override fun uploadProduct(
-            userId: String,
-            imageName: String,
-            imageUri: Uri,
-            product: ProductUtils,
-            callback: OnRequestCompleteListener<Boolean>
-    ) {
+    override fun uploadImage(imageName: String, imageUri: Uri, callback: OnRequestCompleteListener<String>) {
         FirebaseStorage
                 .getInstance()
                 .reference
@@ -37,20 +30,9 @@ class ProductModelIml @Inject constructor(): ProductModel {
 
                         Log.d(TAG, "DownloadUrl: $downloadUri")
 
-                        product.imageUrl = downloadUri.toString()
-                        FirebaseFirestore
-                                .getInstance()
-                                .collection(Config.PRODUCT_PATH)
-                                .document(product.id)
-                                .set(product)
-                                .addOnCompleteListener {task ->
-                                    if (task.isSuccessful) {
-                                        callback.onSuccess(true)
-                                    } else {
-                                        Log.d(TAG, "UploadProductFailed: ${task.result.toString()}")
-                                        callback.onFailed("Product uploading failed")
-                                    }
-                                }
+                        var imageUrl = downloadUri.toString()
+
+                        callback.onSuccess(imageUrl)
                     } catch (e: Exception) {
                         Log.d(TAG, "ImageException: ${e.message} ")
                         callback.onFailed("Image uploading problem")
@@ -58,6 +40,25 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 } .addOnFailureListener {
                     Log.d(TAG, "ImageUploadingFailed: ${it.message} ")
                     callback.onFailed("Image uploading failed")
+                }
+    }
+
+    override fun uploadProduct(
+            product: ProductUtils,
+            callback: OnRequestCompleteListener<Boolean>
+    ) {
+        FirebaseFirestore
+                .getInstance()
+                .collection(Config.PRODUCT_PATH)
+                .document(product.id)
+                .set(product)
+                .addOnCompleteListener {task ->
+                    if (task.isSuccessful) {
+                        callback.onSuccess(true)
+                    } else {
+                        Log.d(TAG, "UploadProductFailed: ${task.result.toString()}")
+                        callback.onFailed("Product uploading failed")
+                    }
                 }
     }
 
@@ -85,6 +86,10 @@ class ProductModelIml @Inject constructor(): ProductModel {
                     Log.d(TAG, "ImageDeletionFailed: ${it.message} ")
                     callback.onFailed("Image deletion failed")
                 }
+    }
+
+    override fun getProduct(id: String, callback: OnRequestCompleteListener<ProductUtils>) {
+        //
     }
 
     override fun getProductListByUserId(userEmail: String, callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {

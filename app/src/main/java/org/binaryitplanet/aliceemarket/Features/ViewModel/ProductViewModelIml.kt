@@ -33,13 +33,33 @@ class ProductViewModelIml @Inject constructor(
         userId = userEmail!!.split("@")[0]
     }
 
-    override fun uploadProduct(imageName: String, imageUri: Uri, product: ProductUtils) {
+    override fun uploadProduct(imageName: String?, imageUri: Uri?, product: ProductUtils) {
         Log.d(TAG, "Uploading product")
+
+        if (imageName.isNullOrEmpty()) {
+            uploadProductData(product)
+        } else {
+            model.uploadImage(
+                    imageName!!,
+                    imageUri!!,
+                    object : OnRequestCompleteListener<String> {
+                        override fun onSuccess(data: String) {
+                            product.imageUrl = data
+                            uploadProductData(product)
+                        }
+
+                        override fun onFailed(message: String) {
+                            Log.d(TAG, "ImageUploadingFailed: $message")
+                        }
+
+                    }
+            )
+        }
+    }
+
+    fun uploadProductData(product: ProductUtils) {
         model
                 .uploadProduct(
-                        userId,
-                        imageName,
-                        imageUri,
                         product,
                         object : OnRequestCompleteListener<Boolean> {
                             override fun onSuccess(data: Boolean) {
@@ -72,6 +92,7 @@ class ProductViewModelIml @Inject constructor(
     }
 
     override fun getProductListByUserId() {
+        Log.d(TAG, "ProductListByUserEmail...")
         model
                 .getProductListByUserId(
                         userEmail,

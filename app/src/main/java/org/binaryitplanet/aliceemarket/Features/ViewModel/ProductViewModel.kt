@@ -5,8 +5,8 @@ import org.binaryitplanet.aliceemarket.Utils.ProductUtils
 
 interface ProductViewModel {
     fun uploadProduct(
-            imageName: String,
-            imageUri: Uri,
+            imageName: String?,
+            imageUri: Uri?,
             product: ProductUtils
     )
 
