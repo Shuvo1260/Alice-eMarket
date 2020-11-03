@@ -20,6 +20,11 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+-keepattributes Signature
+
+-keepclasseswithmembers class org.binaryitplanet.aliceemarket.Utils**{
+*;
+}
 
 #Glide rule
 
