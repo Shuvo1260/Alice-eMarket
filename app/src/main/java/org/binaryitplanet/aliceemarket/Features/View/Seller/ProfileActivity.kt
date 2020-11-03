@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.databinding.ActivityProfileBinding
@@ -21,6 +23,8 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var currentUser: FirebaseUser
 
+    private lateinit var profileViewModel: ProfileViewModelIml
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -29,6 +33,13 @@ class ProfileActivity : AppCompatActivity() {
         currentUser = FirebaseAuth.getInstance().currentUser!!
         setupToolbar()
 
+        val appComponents = DaggerAppComponents.create()
+
+        profileViewModel = appComponents.getProfileViewModel()
+
+        setupListeners()
+
+        profileViewModel.getProfile()
     }
 
     override fun onResume() {
@@ -36,6 +47,26 @@ class ProfileActivity : AppCompatActivity() {
 
         setViews()
     }
+
+
+
+    private fun setupListeners() {
+        profileViewModel.getProfileSuccess.observe(
+                this,
+                {
+                    binding.phone.text = it?.phoneNumber
+                    binding.location.text = it?.location
+                }
+        )
+
+        profileViewModel.getProfileFailed.observe(
+                this,
+                {
+                    Log.d(TAG, "ProfileFetchingFailed")
+                }
+        )
+    }
+
 
     private fun setViews() {
         Glide
