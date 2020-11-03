@@ -1,5 +1,7 @@
 package org.binaryitplanet.aliceemarket.Features.View
 
+import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -37,6 +39,10 @@ class ViewProduct : AppCompatActivity() {
 
     private lateinit var productViewModel: ProductViewModelIml
 
+    private lateinit var progressDialog: ProgressDialog
+
+    private var deleted = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_product)
@@ -55,11 +61,16 @@ class ViewProduct : AppCompatActivity() {
         var appComponents = DaggerAppComponents.create()
 
         productViewModel = appComponents.getProductViewModel()
-        productViewModel.getProduct(product.id)
 
         setupToolbar()
 
         setupListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!deleted)
+            productViewModel.getProduct(product.id)
     }
 
     private fun setupListeners() {
@@ -81,6 +92,36 @@ class ViewProduct : AppCompatActivity() {
                         {
                             product = it
                             setupViews()
+                        }
+                )
+
+        productViewModel.onDeleteSuccessLiveData
+                .observe(
+                        this,
+                        {
+                            if (it) {
+                                Toast.makeText(
+                                        this,
+                                        Config.PRODUCT_DELETED_SUCCESSFULLY,
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                                progressDialog.dismiss()
+                                onBackPressed()
+                            }
+                        }
+                )
+
+        productViewModel.onDeleteFailedLiveData
+                .observe(
+                        this,
+                        {
+                            Toast.makeText(
+                                    this,
+                                    Config.PRODUCT_DELETION_FAILED,
+                                    Toast.LENGTH_SHORT
+                            ).show()
+                            progressDialog.dismiss()
+                            deleted = false
                         }
                 )
     }
@@ -121,13 +162,36 @@ class ViewProduct : AppCompatActivity() {
         overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
     }
 
-    override fun onResume() {
-        super.onResume()
 
+    private fun deleteProduct() {
 
-        setupViews()
+        progressDialog = ProgressDialog(this)
+        progressDialog.setIcon(R.mipmap.ic_launcher)
+        progressDialog.setTitle(Config.PRODUCT_DELETING_TITLE)
+        progressDialog.setMessage(Config.PLEASE_WAIT)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setIcon(R.mipmap.ic_launcher)
+        builder.setMessage(Config.PRODUCT_DELETE_TITLE)
+
+        builder.setPositiveButton(
+                Config.YES,
+
+        ){ dialog, which ->
+            progressDialog.show()
+            deleted = true
+            productViewModel
+                    .deleteProduct(product)
+        }
+
+        builder.setNegativeButton(
+                Config.NO
+        ) { dialog, which ->}
+
+        val alertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
-
     private fun setupViews() {
 
         binding.toolbar.title = product.name
@@ -172,7 +236,7 @@ class ViewProduct : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft)
                 } else if ( it.itemId == R.id.delete) {
-                    //
+                    deleteProduct()
                 }
                 return@setOnMenuItemClickListener true
             }

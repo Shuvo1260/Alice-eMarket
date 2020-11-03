@@ -94,34 +94,37 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 .getInstance()
                 .collection(Config.PRODUCT_PATH)
                 .document(id)
-                .addSnapshotListener { value, error ->
-                    if (error != null) {
-                        Log.d(TAG, "ProductFetchingError: ${error.message}")
-                        callback.onFailed(error.message!!)
-                        return@addSnapshotListener
-                    }
+                .get()
+                .addOnSuccessListener{
 
-                    if (value != null) {
-                        var document = value
-                        val product = ProductUtils(
-                                document.getString(Config.ID)!!,
-                                document.getString(Config.NAME)!!,
-                                document.getString(Config.IMAGE_URL)!!,
-                                document.getDouble(Config.PRICE)!!,
-                                document.getString(Config.CATEGORY)!!,
-                                document.getString(Config.QUANTITY)!!,
-                                document.getString(Config.UNIT)!!,
-                                document.getString(Config.SELLER_NAME)!!,
-                                document.getString(Config.SELLER_PHONE)!!,
-                                document.getString(Config.SELLER_EMAIL)!!,
-                                document.getString(Config.SELLER_LOCATION)!!,
-                                document.getString(Config.SELLER_MESSAGE)!!
-                        )
+                    try {
+                        var document = it
+                        if (!document.getString(Config.ID)!!.isNullOrEmpty()) {
+                            val product = ProductUtils(
+                                    document.getString(Config.ID)!!,
+                                    document.getString(Config.NAME)!!,
+                                    document.getString(Config.IMAGE_URL)!!,
+                                    document.getDouble(Config.PRICE)!!,
+                                    document.getString(Config.CATEGORY)!!,
+                                    document.getString(Config.QUANTITY)!!,
+                                    document.getString(Config.UNIT)!!,
+                                    document.getString(Config.SELLER_NAME)!!,
+                                    document.getString(Config.SELLER_PHONE)!!,
+                                    document.getString(Config.SELLER_EMAIL)!!,
+                                    document.getString(Config.SELLER_LOCATION)!!,
+                                    document.getString(Config.SELLER_MESSAGE)!!
+                            )
 
-                        callback.onSuccess(product)
-                    } else {
-                        callback.onFailed("Product fetching failed")
+
+                            callback.onSuccess(product)
+                        }
+                    } catch (e: Exception) {
+                        callback.onFailed(e.message!!)
                     }
+                }
+                .addOnFailureListener {
+                    Log.d(TAG, "ProductFetchingError: ${it.message}")
+                    callback.onFailed(it.message!!)
                 }
     }
 

@@ -16,8 +16,8 @@ class ProductViewModelIml @Inject constructor(
 
     private val TAG = "ProductViewModel"
 
-    private var userId: String
-    private var userEmail: String
+    private var userId: String? = null
+    private var userEmail: String? = null
 
     val onUploadSuccessLiveData = MutableLiveData<Boolean>()
     val onUploadFailedLiveData = MutableLiveData<String>()
@@ -31,9 +31,12 @@ class ProductViewModelIml @Inject constructor(
     val onGetProductFailedLiveData = MutableLiveData<String>()
 
     init {
-        val currentUser = FirebaseAuth.getInstance().currentUser!!
-        userEmail = currentUser.email!!
-        userId = userEmail!!.split("@")[0]
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        if (currentUser != null) {
+            userEmail = currentUser?.email!!
+            userId = userEmail!!.split("@")[0]
+        }
     }
 
     override fun uploadProduct(imageName: String?, imageUri: Uri?, product: ProductUtils) {
@@ -116,7 +119,7 @@ class ProductViewModelIml @Inject constructor(
         Log.d(TAG, "ProductListByUserEmail...")
         model
                 .getProductListByUserId(
-                        userEmail,
+                        userEmail!!,
                         object : OnRequestCompleteListener<ArrayList<ProductUtils>> {
                             override fun onSuccess(data: ArrayList<ProductUtils>) {
                                 onGetListByUserIdSuccessLiveData.postValue(data)

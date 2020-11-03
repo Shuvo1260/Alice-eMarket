@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
+import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
 import org.binaryitplanet.aliceemarket.Utils.ConfigFunction
@@ -41,6 +42,8 @@ class AddProduct : AppCompatActivity() {
 
     private lateinit var productViewModel: ProductViewModelIml
 
+    private lateinit var profileViewModel: ProfileViewModelIml
+
     private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,18 +55,14 @@ class AddProduct : AppCompatActivity() {
         var appComponents = DaggerAppComponents.create()
 
         productViewModel = appComponents.getProductViewModel()
+        profileViewModel = appComponents.getProfileViewModel()
 
         isEdit = intent?.getBooleanExtra(Config.IS_EDIT, false)!!
         if (isEdit) {
             product = intent?.getSerializableExtra(Config.PRODUCT) as ProductUtils
-            seller = ProfileUtils(
-                    product.sellerPhone,
-                    product.sellerLocation
-            )
             setupView()
-        } else {
-            seller = intent?.getSerializableExtra(Config.PROFILE) as ProfileUtils
         }
+        profileViewModel.getProfile()
 
         setupDropDowns()
         setupToolbar()
@@ -110,6 +109,27 @@ class AddProduct : AppCompatActivity() {
                             progressDialog.dismiss()
                         }
                 )
+
+        profileViewModel.getProfileSuccess.observe(
+            this,
+            {
+                seller = it!!
+            }
+        )
+
+        profileViewModel.getProfileFailed.observe(
+            this,
+            {
+                seller = if (isEdit) {
+                    ProfileUtils(
+                        product.sellerPhone,
+                        product.sellerLocation
+                    )
+                } else {
+                    intent?.getSerializableExtra(Config.PROFILE) as ProfileUtils
+                }
+            }
+        )
     }
 
 
@@ -263,6 +283,7 @@ class AddProduct : AppCompatActivity() {
         binding.unit.setText(product.unit)
         binding.sellerMessage.setText(product.sellerMessage)
 
+        binding.productName.setSelection(product.name.length)
     }
 
 
