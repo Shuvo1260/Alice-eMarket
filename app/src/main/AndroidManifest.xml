@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AliceEMarket">
-        <activity android:name=".Features.View.HomeActivity"></activity>
+        <activity android:name=".Features.View.HomeActivity"
+            android:screenOrientation="portrait" ></activity>
         <activity
             android:name=".Features.View.Seller.EditProfile"
             android:screenOrientation="portrait" />

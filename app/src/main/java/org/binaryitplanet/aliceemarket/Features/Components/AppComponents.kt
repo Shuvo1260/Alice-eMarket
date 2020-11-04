@@ -2,6 +2,7 @@ package org.binaryitplanet.aliceemarket.Features.Components
 
 import android.content.Context
 import dagger.Component
+import org.binaryitplanet.aliceemarket.Features.ViewModel.NewsViewModelIml
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProductViewModelIml
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModel
 import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
@@ -11,4 +12,6 @@ interface AppComponents {
     fun getProfileViewModel(): ProfileViewModelIml
 
     fun getProductViewModel(): ProductViewModelIml
+
+    fun getNewsViewModel(): NewsViewModelIml
 }

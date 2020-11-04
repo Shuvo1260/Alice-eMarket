@@ -5,11 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import org.binaryitplanet.aliceemarket.Features.Adapter.NewsAdapter
+import org.binaryitplanet.aliceemarket.Features.Components.DaggerAppComponents
 import org.binaryitplanet.aliceemarket.Features.View.Seller.LoginActivity
 import org.binaryitplanet.aliceemarket.Features.View.Seller.SellerActivity
+import org.binaryitplanet.aliceemarket.Features.ViewModel.NewsViewModelIml
 import org.binaryitplanet.aliceemarket.R
 import org.binaryitplanet.aliceemarket.Utils.Config
+import org.binaryitplanet.aliceemarket.Utils.NewsUtils
 import org.binaryitplanet.aliceemarket.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -17,6 +22,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     private val TAG = "HomeActivity"
 
     private lateinit var binding: ActivityHomeBinding
+
+    private lateinit var newsViewModel: NewsViewModelIml
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,39 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.vegetable.setOnClickListener(this)
 
         binding.addProduct.setOnClickListener(this)
+
+
+        var appComponents = DaggerAppComponents.create()
+        newsViewModel = appComponents.getNewsViewModel()
+
+        setupListener()
+
+    }
+
+    private fun setupListener() {
+        newsViewModel.newsListLiveData
+                .observe(
+                        this,
+                        {
+                            setupRecyclerView(it as ArrayList<NewsUtils>)
+                        }
+                )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        newsViewModel.getNewsList()
+    }
+
+    private fun setupRecyclerView(newsList: ArrayList<NewsUtils>) {
+        val adapter = NewsAdapter(this, newsList)
+        binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(
+                this,
+                LinearLayoutManager.HORIZONTAL,
+                false
+        )
+        binding.list.setItemViewCacheSize(Config.CACHE_SIZE)
     }
 
 

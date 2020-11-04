@@ -95,5 +95,6 @@ class Config {
         // Database paths
         val PROFILE_PATH = "Sellers"
         val PRODUCT_PATH = "Products"
+        val NEWS_PATH = "News"
     }
 }
