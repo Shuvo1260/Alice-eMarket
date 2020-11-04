@@ -57,6 +57,7 @@ class ProductAdapter(
 
         try {
 
+            // Setting up data into views of product items.
             Glide
                 .with(context)
                 .load(productList[position].imageUrl)
@@ -73,6 +74,7 @@ class ProductAdapter(
             Log.d(TAG, "ExpenseViewError: ${e.message}")
         }
 
+        // It will display the product details on click the item.
 
         view.setOnClickListener {
             val intent = Intent(context, ViewProduct::class.java)
@@ -118,6 +120,7 @@ class ProductAdapter(
         }
     }
 
+    // This filters the items on search
     override fun getFilter(): Filter {
         return object: Filter() {
             private val filterResult = FilterResults()

@@ -24,6 +24,7 @@ class SplashScreen : AppCompatActivity() {
         }
 
 
+        // Opening home activity after 4 second
         Handler(Looper.getMainLooper()).postDelayed({
 
             var intent = Intent(applicationContext, HomeActivity::class.java)

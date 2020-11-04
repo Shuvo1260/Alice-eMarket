@@ -17,6 +17,7 @@ class NewsViewModelIml @Inject constructor(
     val newsListLiveData = MutableLiveData<MutableList<NewsUtils>>()
 
     override fun getNewsList() {
+        // Requesting for news list to the model
         model.getNewsList(object : OnRequestCompleteListener<ArrayList<NewsUtils>>{
             override fun onSuccess(data: ArrayList<NewsUtils>) {
                 newsListLiveData.postValue(data)

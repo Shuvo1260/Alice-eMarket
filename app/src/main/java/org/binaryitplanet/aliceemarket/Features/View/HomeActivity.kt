@@ -46,6 +46,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupListener() {
+        // On news list fetch success listener
         newsViewModel.newsListLiveData
                 .observe(
                         this,
@@ -60,6 +61,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         newsViewModel.getNewsList()
     }
 
+    // Setting news list
     private fun setupRecyclerView(newsList: ArrayList<NewsUtils>) {
         val adapter = NewsAdapter(this, newsList)
         binding.list.adapter = adapter

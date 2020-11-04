@@ -14,6 +14,7 @@ class NewsModelIml @Inject constructor(): NewsModel {
 
     override fun getNewsList(callback: OnRequestCompleteListener<ArrayList<NewsUtils>>) {
         var newsList = arrayListOf<NewsUtils>()
+        // Getting news list from database
         FirebaseFirestore
                 .getInstance()
                 .collection(Config.NEWS_PATH)

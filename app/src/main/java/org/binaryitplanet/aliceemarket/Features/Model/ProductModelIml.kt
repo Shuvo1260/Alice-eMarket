@@ -14,6 +14,9 @@ import javax.inject.Inject
 class ProductModelIml @Inject constructor(): ProductModel {
 
     private val TAG = "ProductModel"
+
+
+    // Uploading image to database
     override fun uploadImage(imageName: String, imageUri: Uri, callback: OnRequestCompleteListener<String>) {
         FirebaseStorage
                 .getInstance()
@@ -43,6 +46,7 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
+    // Uploading product details
     override fun uploadProduct(
             product: ProductUtils,
             callback: OnRequestCompleteListener<Boolean>
@@ -62,6 +66,7 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
+    // Deleting product details
     override fun deleteProduct(product: ProductUtils, callback: OnRequestCompleteListener<Boolean>) {
         val storage = FirebaseStorage
                 .getInstance().getReferenceFromUrl(product.imageUrl)
@@ -88,6 +93,7 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
+    // Getting single product details
     override fun getProduct(id: String, callback: OnRequestCompleteListener<ProductUtils>) {
 
         FirebaseFirestore
@@ -128,6 +134,8 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
+
+    // Fetching logged in farmer's product list
     override fun getProductListByUserId(userEmail: String, callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {
         var productList = arrayListOf<ProductUtils>()
 
@@ -183,6 +191,7 @@ class ProductModelIml @Inject constructor(): ProductModel {
                 }
     }
 
+    // Fetching all products list by category.
     override fun getProductList(category: String, callback: OnRequestCompleteListener<ArrayList<ProductUtils>>) {
         var productList = arrayListOf<ProductUtils>()
 

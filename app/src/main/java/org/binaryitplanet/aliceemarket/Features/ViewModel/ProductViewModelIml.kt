@@ -41,6 +41,7 @@ class ProductViewModelIml @Inject constructor(
 
     override fun uploadProduct(imageName: String?, imageUri: Uri?, product: ProductUtils) {
         Log.d(TAG, "Uploading product")
+        // Requesting for upload product to the model
 
         if (imageName.isNullOrEmpty()) {
             uploadProductData(product)
@@ -64,6 +65,7 @@ class ProductViewModelIml @Inject constructor(
     }
 
     fun uploadProductData(product: ProductUtils) {
+        // uploading product data to database
         model
                 .uploadProduct(
                         product,
@@ -81,6 +83,8 @@ class ProductViewModelIml @Inject constructor(
     }
 
     override fun deleteProduct(product: ProductUtils) {
+
+        // Requesting for delete product to the model
         model
                 .deleteProduct(
                         product,
@@ -98,6 +102,8 @@ class ProductViewModelIml @Inject constructor(
     }
 
     override fun getProduct(id: String) {
+
+        // Requesting for product to the model
         model
                 .getProduct(
                         id,
@@ -117,6 +123,7 @@ class ProductViewModelIml @Inject constructor(
 
     override fun getProductListByUserId() {
         Log.d(TAG, "ProductListByUserEmail...")
+        // Requesting for farmer product list to the model
         model
                 .getProductListByUserId(
                         userEmail!!,
@@ -134,6 +141,8 @@ class ProductViewModelIml @Inject constructor(
     }
 
     override fun getProductList(category: String) {
+
+        // Requesting for product list to the model
         model
                 .getProductList(
                         category,

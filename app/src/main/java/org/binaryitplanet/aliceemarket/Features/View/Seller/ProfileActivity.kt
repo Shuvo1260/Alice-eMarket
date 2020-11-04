@@ -54,6 +54,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
     private fun setupListeners() {
+        // On fetching profile details success listener
         profileViewModel.getProfileSuccess.observe(
                 this,
                 {
@@ -63,6 +64,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
         )
 
+        // On fetching profile details failed listener
         profileViewModel.getProfileFailed.observe(
                 this,
                 {
@@ -72,6 +74,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    // Setting data into views
     private fun setViews() {
         Glide
             .with(this)
@@ -82,6 +85,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
 
         binding.toolbar.title = currentUser.displayName

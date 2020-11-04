@@ -43,6 +43,7 @@ class EditProfile : AppCompatActivity() {
         setupViews()
     }
 
+    // Setting data into views
     private fun setupViews() {
         if (profile != null) {
             binding.phone.setText(profile?.phoneNumber)
@@ -53,6 +54,9 @@ class EditProfile : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+
+        // On profile saving success listener
+
         profileViewModel.setProfileSuccess.observe(
                 this,
                 {
@@ -67,6 +71,7 @@ class EditProfile : AppCompatActivity() {
                 }
         )
 
+        // On saving profile failed listener
         profileViewModel
                 .setProfileFailed
                 .observe(
@@ -82,6 +87,7 @@ class EditProfile : AppCompatActivity() {
     }
 
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
         binding.toolbar.title = Config.EDIT_PROFILE_TOOLBAR
         setSupportActionBar(binding.toolbar)

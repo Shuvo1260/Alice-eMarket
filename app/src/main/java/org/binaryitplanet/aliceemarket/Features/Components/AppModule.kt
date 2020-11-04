@@ -13,6 +13,7 @@ import org.binaryitplanet.aliceemarket.Features.ViewModel.ProfileViewModelIml
 @Module
 class AppModule {
 
+    // Dagger implementation
     @Provides
     fun provideProfileModel(): ProfileModelIml{
         return ProfileModelIml()

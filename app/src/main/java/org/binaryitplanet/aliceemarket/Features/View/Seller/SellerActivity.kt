@@ -53,6 +53,7 @@ class SellerActivity : AppCompatActivity() {
 
         binding.addProduct.setOnClickListener {
             if (profileUtls == null) {
+                // Showing Snakcbar if the profile isn't complete yet
                 Snackbar
                         .make(
                                 binding.addProduct,
@@ -69,6 +70,7 @@ class SellerActivity : AppCompatActivity() {
                         .show()
 
             } else {
+                // Opening Add product activity
                 val intent = Intent(this, AddProduct::class.java)
                 intent.putExtra(Config.IS_EDIT, false)
                 intent.putExtra(Config.PROFILE, profileUtls)
@@ -115,6 +117,7 @@ class SellerActivity : AppCompatActivity() {
                 )
     }
 
+    // Setting farmer products list
     private fun setupRecyclerView() {
         adapter = ProductAdapter(this, productList, true)
         binding.list.adapter = adapter
@@ -137,6 +140,7 @@ class SellerActivity : AppCompatActivity() {
         }
     }
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
         binding.toolbar.title = currentUser.displayName
         setSupportActionBar(binding.toolbar)

@@ -147,6 +147,7 @@ class LoginActivity : AppCompatActivity() {
         progressDialog.setCanceledOnTouchOutside(false)
     }
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
         binding.toolbar.title = Config.LOGIN_TOOLBAR
         setSupportActionBar(binding.toolbar)

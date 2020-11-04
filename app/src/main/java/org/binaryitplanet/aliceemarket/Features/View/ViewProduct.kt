@@ -86,6 +86,7 @@ class ViewProduct : AppCompatActivity() {
             openLocation()
         }
 
+        // Getting product from viewmodel
         productViewModel.onGetProductSuccessLiveData
                 .observe(
                         this,
@@ -95,6 +96,7 @@ class ViewProduct : AppCompatActivity() {
                         }
                 )
 
+        // On delete success listener
         productViewModel.onDeleteSuccessLiveData
                 .observe(
                         this,
@@ -111,6 +113,7 @@ class ViewProduct : AppCompatActivity() {
                         }
                 )
 
+        // On delete failed listener
         productViewModel.onDeleteFailedLiveData
                 .observe(
                         this,
@@ -126,6 +129,7 @@ class ViewProduct : AppCompatActivity() {
                 )
     }
 
+    // Opening farmer location
     private fun openLocation() {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse("http://maps.google.com/maps?q=loc:${product.sellerLocation}")
@@ -133,6 +137,8 @@ class ViewProduct : AppCompatActivity() {
         overridePendingTransition(R.anim.righttoposition, R.anim.positiontoright)
     }
 
+
+    // Sending mail to the farmer
     private fun openEmail() {
         try {
             val intent = Intent(Intent.ACTION_SEND)
@@ -155,6 +161,7 @@ class ViewProduct : AppCompatActivity() {
         }
     }
 
+    // Calling the farmer
     private fun openPhone() {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:${product.sellerPhone}")
@@ -163,6 +170,7 @@ class ViewProduct : AppCompatActivity() {
     }
 
 
+    // Deleting the product
     private fun deleteProduct() {
 
         progressDialog = ProgressDialog(this)
@@ -192,10 +200,13 @@ class ViewProduct : AppCompatActivity() {
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
+
+    // Setting data into views
     private fun setupViews() {
 
         binding.toolbar.title = product.name
 
+        // Displaying images
         Glide
             .with(this)
             .load(product.imageUrl)
@@ -217,6 +228,7 @@ class ViewProduct : AppCompatActivity() {
     }
 
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

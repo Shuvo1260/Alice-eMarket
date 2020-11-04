@@ -81,6 +81,7 @@ class AddProduct : AppCompatActivity() {
     }
 
     private fun setupListener() {
+        // Uploading product success listener
         productViewModel.onUploadSuccessLiveData
                 .observe(
                         this,
@@ -97,6 +98,7 @@ class AddProduct : AppCompatActivity() {
                         }
                 )
 
+        // Uploading product failed listener
         productViewModel.onUploadFailedLiveData
                 .observe(
                         this,
@@ -110,6 +112,7 @@ class AddProduct : AppCompatActivity() {
                         }
                 )
 
+        // Getting profile details success listener
         profileViewModel.getProfileSuccess.observe(
             this,
             {
@@ -117,6 +120,7 @@ class AddProduct : AppCompatActivity() {
             }
         )
 
+        // Getting profile details failed listener
         profileViewModel.getProfileFailed.observe(
             this,
             {
@@ -133,6 +137,7 @@ class AddProduct : AppCompatActivity() {
     }
 
 
+    // Sending data to viewmodel to save the product details into database
     private fun saveProduct() {
 
         progressDialog = ProgressDialog(this)
@@ -174,6 +179,7 @@ class AddProduct : AppCompatActivity() {
     }
 
 
+    // Storage permission taking
     override fun onRequestPermissionsResult(
             requestCode: Int,
             permissions: Array<out String>,
@@ -198,6 +204,7 @@ class AddProduct : AppCompatActivity() {
             && data.data != null
         ) {
             try {
+                // Taking image from gallery of SD card
                 imageUri = data.data
                 imageUrl = imageUri.toString()
                 Log.d(TAG, "ImagePath: $imageUrl")
@@ -242,6 +249,7 @@ class AddProduct : AppCompatActivity() {
     }
 
 
+    // Checking all data is valid or not
     private fun validationChecker(): Boolean {
         if (imageUrl.isNullOrEmpty()) {
             Toast.makeText(
@@ -273,6 +281,7 @@ class AddProduct : AppCompatActivity() {
         return true
     }
 
+    // Setting up data into views
     private fun setupView() {
 
         imageUrl = product.imageUrl
@@ -287,6 +296,7 @@ class AddProduct : AppCompatActivity() {
     }
 
 
+    // Displaying image on image select
     private fun previewImage(imageUrl: String) {
         Glide
             .with(this)
@@ -298,6 +308,7 @@ class AddProduct : AppCompatActivity() {
             binding.addImageIcon.visibility = View.GONE
     }
 
+    // Below codes are for setting up toolbar
     private fun setupToolbar() {
         if (isEdit) {
             binding.toolbar.title = Config.EDIT_PRODUCT_TOOLBAR

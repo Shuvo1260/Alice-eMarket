@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
 
         setupListener()
 
+        // Open farmer activity. if it the user not in sigined in then it will open sigin in activity
+        // otherwise Farmer activity.
         binding.addProduct.setOnClickListener {
             val intent = if (FirebaseAuth.getInstance().currentUser == null) {
                 Intent(this, LoginActivity::class.java)
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Fetching data from view model
     private fun setupListener() {
         productViewModel
                 .onGetListSuccessLiveData
@@ -75,6 +78,7 @@ class MainActivity : AppCompatActivity() {
                 )
     }
 
+    // Setting the product list
     private fun setupRecyclerView() {
         adapter = ProductAdapter(this, productList, false)
         binding.list.adapter = adapter
@@ -82,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding.list.setItemViewCacheSize(Config.CACHE_SIZE)
     }
 
+    // Below codes are for toolbar settings
     private fun setupToolbar() {
         binding.toolbar.title = Config.PRODUCTS
         setSupportActionBar(binding.toolbar)

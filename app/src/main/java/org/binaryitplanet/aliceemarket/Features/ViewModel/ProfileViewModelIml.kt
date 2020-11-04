@@ -29,6 +29,8 @@ class ProfileViewModelIml @Inject constructor(
 
 
     override fun setProfile(profile: ProfileUtils) {
+        // Requesting for upload profile data to the model
+
         model.setProfile(
                 userId,
                 profile,
@@ -47,6 +49,7 @@ class ProfileViewModelIml @Inject constructor(
     }
 
     override fun getProfile() {
+        // Requesting for profile to the model
         model.getProfile(
                 userId,
                 object : OnRequestCompleteListener<ProfileUtils?>{

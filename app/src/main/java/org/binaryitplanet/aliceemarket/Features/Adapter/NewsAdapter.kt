@@ -42,6 +42,7 @@ class NewsAdapter(
 
         try {
 
+            // Setting up the data into views of news items
             if (position == newsList.size - 1) {
                 view.margin.visibility = View.VISIBLE
             } else {

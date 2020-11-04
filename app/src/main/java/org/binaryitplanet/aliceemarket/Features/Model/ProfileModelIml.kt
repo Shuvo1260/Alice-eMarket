@@ -11,6 +11,7 @@ class ProfileModelIml @Inject constructor(): ProfileModel {
 
     private val TAG = "ProfileModel"
 
+    // Saving the farmers profile details to database
     override fun setProfile(userId: String, profile: ProfileUtils, callback: OnRequestCompleteListener<Boolean>) {
         FirebaseFirestore
                 .getInstance()
@@ -27,6 +28,7 @@ class ProfileModelIml @Inject constructor(): ProfileModel {
                 }
     }
 
+    // Fetching farmers profile details from database
     override fun getProfile(userId: String, callback: OnRequestCompleteListener<ProfileUtils?>) {
         FirebaseFirestore
                 .getInstance()
